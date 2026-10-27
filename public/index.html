@@ -1,0 +1,522 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Karunya Campus Navigation & Resource Finder</title>
+  <meta name="description" content="Campus navigation and resource finder for Karunya Institute of Technology and Sciences, Coimbatore.">
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Outfit:wght@500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- Local Leaflet Map CSS (Offline-safe & fast) -->
+  <link rel="stylesheet" href="/vendor/leaflet/leaflet.css">
+
+  <!-- Application Styling -->
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+
+  <!-- ========================================================
+       TOP HEADER BAR
+       ======================================================== -->
+  <header class="app-header">
+    <div class="brand-section">
+      <div class="brand-text">
+        <h1>
+          Karunya Campus Navigator
+          <span class="brand-badge">Campus Map</span>
+        </h1>
+        <p>Karunya Institute of Technology and Sciences &bull; Coimbatore</p>
+      </div>
+    </div>
+
+    <!-- MAIN NAVIGATION TABS -->
+    <nav class="nav-tabs" aria-label="Navigation Tabs">
+      <button class="nav-tab-btn active" data-tab="routeTab" id="tabBtnRoute">
+        Shortest Route
+      </button>
+      <button class="nav-tab-btn" data-tab="amenityTab" id="tabBtnAmenity">
+        Nearest Amenity
+      </button>
+      <button class="nav-tab-btn" data-tab="directoryTab" id="tabBtnDirectory">
+        Campus Directory
+      </button>
+      <button class="nav-tab-btn" data-tab="visualizerTab" id="tabBtnVisualizer">
+        Campus Network
+      </button>
+      <button class="nav-tab-btn" data-tab="adminTab" id="tabBtnAdmin">
+        Admin Portal
+      </button>
+    </nav>
+
+    <!-- STATUS PILL -->
+    <div class="header-status-pill">
+      <div class="status-badge" id="graphStatusBar">
+        <span id="graphStatusText">Loading Campus Map...</span>
+      </div>
+    </div>
+  </header>
+
+  <!-- ========================================================
+       MAIN APPLICATION WORKSPACE
+       ======================================================== -->
+  <main class="app-container">
+
+    <!-- LEFT SIDEBAR CONTROL PANEL -->
+    <aside class="app-sidebar" id="appSidebar">
+
+      <!-- 1. SHORTEST ROUTE TAB -->
+      <section class="sidebar-tab-content active" id="routeTab">
+        <div class="panel-header">
+          <h2>Shortest Pedestrian Route</h2>
+          <p>Find the fastest walking route between campus buildings, departments, and facilities.</p>
+        </div>
+
+        <div class="glass-card">
+          <div class="location-picker-group">
+            <div class="form-group">
+              <label class="form-label" for="routeOrigin">
+                Starting Location
+                <span class="badge">ORIGIN</span>
+              </label>
+              <select class="form-select" id="routeOrigin">
+                <option value="">Loading campus locations...</option>
+              </select>
+            </div>
+
+            <button type="button" class="btn-swap-locations" id="btnSwapLocations" title="Swap Origin & Destination">
+              Swap Locations
+            </button>
+
+            <div class="form-group" style="margin-bottom: 0;">
+              <label class="form-label" for="routeDestination">
+                Target Destination
+                <span class="badge">DESTINATION</span>
+              </label>
+              <select class="form-select" id="routeDestination">
+                <option value="">Loading campus locations...</option>
+              </select>
+            </div>
+          </div>
+
+          <div style="display: flex; gap: 8px; margin-top: 14px;">
+            <button type="button" class="btn-primary" id="btnCalculateRoute" style="flex: 2;">
+              Calculate Shortest Path
+            </button>
+            <button type="button" class="btn-secondary" id="btnClearRoute" style="flex: 1;">
+              Clear
+            </button>
+          </div>
+        </div>
+
+        <!-- ROUTE CALCULATION RESULT BOX -->
+        <div class="glass-card route-result-container" id="routeResultBox">
+          <div class="card-title">
+            <span>Optimal Route Statistics</span>
+            <button type="button" class="btn-outline" id="btnSimulateWalk">
+              Simulate Walk
+            </button>
+          </div>
+
+          <div class="route-stats-grid">
+            <div class="route-stat-box">
+              <span class="stat-label">Total Distance</span>
+              <span class="stat-value highlight-green" id="statDistance">0 m</span>
+            </div>
+            <div class="route-stat-box">
+              <span class="stat-label">Estimated Walking Time</span>
+              <span class="stat-value highlight-blue" id="statTime">0 min</span>
+            </div>
+            <div class="route-stat-box">
+              <span class="stat-label">Landmarks Traversed</span>
+              <span class="stat-value" id="statNodesCount">0</span>
+            </div>
+            <div class="route-stat-box">
+              <span class="stat-label">Waypoints Evaluated</span>
+              <span class="stat-value highlight-amber" id="statExplored">0</span>
+            </div>
+          </div>
+
+          <div class="dsa-meta-pill" id="dsaLatency">
+            Optimal Walking Path
+          </div>
+
+          <!-- STEP-BY-STEP DIRECTIONS -->
+          <div>
+            <div class="form-label" style="margin-bottom: 6px;">
+              <span>Step-by-Step Walking Directions</span>
+            </div>
+            <div class="directions-list" id="directionsList">
+              <!-- Dynamically rendered -->
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 2. NEAREST AMENITY TAB -->
+      <section class="sidebar-tab-content" id="amenityTab">
+        <div class="panel-header">
+          <h2>Nearest Campus Resource</h2>
+          <p>Quickly locate the closest essential facility, food outlet, library, auditorium, or ATM.</p>
+        </div>
+
+        <div class="glass-card">
+          <div class="form-group">
+            <label class="form-label" for="amenityOrigin">Current Location</label>
+            <select class="form-select" id="amenityOrigin">
+              <option value="">Loading locations...</option>
+            </select>
+          </div>
+
+          <div class="form-label" style="margin-bottom: 8px;">Select Amenity Category:</div>
+          <div class="amenity-categories-grid">
+            <div class="amenity-cat-card selected" data-category="dining">
+              <div class="amenity-name">Food &amp; Canteen</div>
+            </div>
+            <div class="amenity-cat-card" data-category="academic">
+              <div class="amenity-name">Central Library</div>
+            </div>
+            <div class="amenity-cat-card" data-category="auditorium">
+              <div class="amenity-name">Auditoriums</div>
+            </div>
+            <div class="amenity-cat-card" data-category="lab">
+              <div class="amenity-name">Labs &amp; Computing</div>
+            </div>
+            <div class="amenity-cat-card" data-category="sports">
+              <div class="amenity-name">Sports &amp; Grounds</div>
+            </div>
+            <div class="amenity-cat-card" data-category="hostel-boys">
+              <div class="amenity-name">Boys' Hostels</div>
+            </div>
+            <div class="amenity-cat-card" data-category="hostel-girls">
+              <div class="amenity-name">Girls' Hostels</div>
+            </div>
+            <div class="amenity-cat-card" data-category="medical">
+              <div class="amenity-name">Hospital &amp; Health</div>
+            </div>
+            <div class="amenity-cat-card" data-category="amenity">
+              <div class="amenity-name">Bank &amp; ATM</div>
+            </div>
+            <div class="amenity-cat-card" data-category="department">
+              <div class="amenity-name">Departments</div>
+            </div>
+          </div>
+
+          <button type="button" class="btn-primary" id="btnFindAmenity">
+            Find Nearest Facility
+          </button>
+        </div>
+
+        <!-- AMENITY RESULT CARD -->
+        <div class="glass-card" id="amenityResultCard" style="display: none; flex-direction: column; gap: 10px;">
+          <div class="card-title">Nearest Matching Landmark</div>
+          <div style="background: #ecfdf5; border: 1px solid #a7f3d0; border-radius: 6px; padding: 12px;">
+            <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 4px;">
+              <h3 id="amenityFoundName" style="color: #065f46; font-size: 15px; margin: 0;">--</h3>
+              <span id="amenityFoundStatus" class="status-badge-verified">Verified</span>
+            </div>
+            <p id="amenityFoundDesc" style="color: #334155; font-size: 12px; margin-bottom: 6px;">--</p>
+            <div id="amenityFoundHops" style="font-family: var(--font-mono); font-size: 11px; color: #047857; font-weight: 600;">--</div>
+          </div>
+          <button type="button" class="btn-primary" id="btnAmenityNavigate">
+            Navigate to Facility
+          </button>
+        </div>
+      </section>
+
+      <!-- 3. CAMPUS DIRECTORY & SEARCH TAB -->
+      <section class="sidebar-tab-content" id="directoryTab">
+        <div class="panel-header">
+          <h2>Campus Building Directory</h2>
+          <p>Quickly browse, filter, and search through verified campus buildings, halls, and labs.</p>
+        </div>
+
+        <div class="search-bar-wrap">
+          <input type="text" class="search-input" id="directorySearchInput" placeholder="Search by name, ID, category or area...">
+        </div>
+
+        <!-- CATEGORY FILTERS -->
+        <div class="category-filter-pills" id="categoryFilterPills">
+          <button class="filter-pill active" data-cat="all">All</button>
+          <button class="filter-pill" data-cat="department">Depts</button>
+          <button class="filter-pill" data-cat="academic">Academic</button>
+          <button class="filter-pill" data-cat="hostel-boys">Boys' Hostels</button>
+          <button class="filter-pill" data-cat="hostel-girls">Girls' Hostels</button>
+          <button class="filter-pill" data-cat="auditorium">Auditoriums</button>
+          <button class="filter-pill" data-cat="lab">Labs</button>
+          <button class="filter-pill" data-cat="dining">Dining</button>
+          <button class="filter-pill" data-cat="sports">Sports</button>
+          <button class="filter-pill" data-cat="medical">Medical</button>
+          <button class="filter-pill" data-cat="amenity">Amenities</button>
+          <button class="filter-pill" data-cat="school">KCS Area</button>
+        </div>
+
+        <!-- VERIFICATION STATUS FILTERS -->
+        <div class="verification-filter-wrap">
+          <span style="font-size: 11px; font-weight: 600; color: var(--text-muted);">Status Filter:</span>
+          <button class="status-filter-btn active" data-status="all" id="filterStatusAll">All</button>
+          <button class="status-filter-btn" data-status="verified" id="filterStatusVerified">Verified</button>
+          <button class="status-filter-btn" data-status="unverified" id="filterStatusUnverified">Needs Verification</button>
+        </div>
+
+        <div class="buildings-list-container" id="buildingsListContainer">
+          <!-- Dynamically populated -->
+        </div>
+      </section>
+
+      <!-- 4. CAMPUS NETWORK TAB -->
+      <section class="sidebar-tab-content" id="visualizerTab">
+        <div class="panel-header">
+          <h2>Campus Network Architecture</h2>
+          <p>Explore connected walkways, pathways, and landmark registry of Karunya University.</p>
+        </div>
+
+        <div class="glass-card">
+          <div class="card-title">1. Connected Walkways by Landmark</div>
+          <div class="form-group">
+            <label class="form-label" for="visualizerNodeSelect">Select Landmark:</label>
+            <select class="form-select" id="visualizerNodeSelect">
+              <!-- Dynamically populated -->
+            </select>
+          </div>
+          <div class="visualizer-card-box" id="adjListBox">Select a landmark to view connected walkways...</div>
+        </div>
+
+        <div class="glass-card">
+          <div class="card-title">
+            <span>2. Fast Landmark Registry</span>
+          </div>
+          <div class="dsa-meta-pill" id="htStats" style="margin-bottom: 8px;">
+            Landmarks Indexed: 25
+          </div>
+          <div class="hash-table-bucket-grid" id="hashTableBucketsGrid">
+            <!-- Dynamically populated bucket chains -->
+          </div>
+        </div>
+      </section>
+
+      <!-- 5. ADMIN MANAGEMENT PORTAL TAB -->
+      <section class="sidebar-tab-content" id="adminTab">
+        <div class="panel-header">
+          <h2>Admin Management Portal</h2>
+          <p>Manage campus landmarks and walkable network using JWT-authenticated CRUD endpoints.</p>
+        </div>
+
+        <!-- LOGIN FORM -->
+        <div class="glass-card" id="adminLoginSection">
+          <div class="card-title">Administrator Authentication</div>
+          <p style="font-size: 12px; color: var(--text-secondary); margin-bottom: 12px;">
+            Default Credentials: <code>admin</code> / <code>karunya123</code>
+          </p>
+          <div class="form-group">
+            <label class="form-label" for="adminUsername">Username</label>
+            <input type="text" class="form-control" id="adminUsername" value="admin">
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="adminPassword">Password</label>
+            <input type="password" class="form-control" id="adminPassword" value="karunya123">
+          </div>
+          <button type="button" class="btn-primary" id="btnAdminLogin">
+            Sign In with JWT
+          </button>
+        </div>
+
+        <!-- LOGGED IN ADMIN ACTIONS -->
+        <div id="adminManagerSection" style="display: none; flex-direction: column; gap: 14px;">
+          <div class="glass-card">
+            <div style="display: flex; justify-content: space-between; align-items: center;">
+              <span class="admin-badge-active">Active Admin Session</span>
+              <button type="button" class="btn-outline" id="btnAdminLogout">Sign Out</button>
+            </div>
+          </div>
+
+          <!-- ADD BUILDING -->
+          <div class="glass-card">
+            <div class="card-title">Add / Update Landmark</div>
+
+            <!-- INTERACTIVE MAP PICKER TOGGLE -->
+            <div style="background: #eff6ff; border: 1px solid #bfdbfe; border-radius: 6px; padding: 10px; margin-bottom: 12px;">
+              <div style="display: flex; justify-content: space-between; align-items: center; gap: 8px;">
+                <span style="font-size: 11px; font-weight: 700; color: #1e40af;">Map Coordinate Capture:</span>
+                <button type="button" class="btn-outline" id="btnToggleMapPicker" style="background: #ffffff; padding: 4px 8px;">
+                  Pick from Map
+                </button>
+              </div>
+              <div id="pickerStatusText" style="font-size: 11px; color: #3b82f6; margin-top: 4px;">
+                Click "Pick from Map", then click anywhere on the campus map to auto-fill Lat/Lng.
+              </div>
+            </div>
+
+            <form id="formAddBuilding" style="display: flex; flex-direction: column; gap: 8px;">
+              <div class="form-group">
+                <label class="form-label">ID (Uppercase Unique)</label>
+                <input type="text" class="form-control" id="newBldgId" placeholder="e.g. ROBOTICS_LAB" required>
+              </div>
+              <div class="form-group">
+                <label class="form-label">Building Name</label>
+                <input type="text" class="form-control" id="newBldgName" placeholder="e.g. Advanced Robotics Innovation Lab" required>
+              </div>
+              <div class="form-group">
+                <label class="form-label">Category</label>
+                <select class="form-select" id="newBldgCategory" required>
+                  <option value="department">Engineering Department</option>
+                  <option value="academic">Academic &amp; Library</option>
+                  <option value="hostel-boys">Boys' Hostel</option>
+                  <option value="hostel-girls">Girls' Hostel</option>
+                  <option value="auditorium">Auditorium / Convention</option>
+                  <option value="lab">Lab &amp; Research</option>
+                  <option value="dining">Dining &amp; Canteen</option>
+                  <option value="sports">Sports &amp; Ground</option>
+                  <option value="medical">Hospital &amp; Health</option>
+                  <option value="administrative">Administrative Block</option>
+                  <option value="amenity">Bank, Store &amp; Amenity</option>
+                  <option value="school">School (KCS)</option>
+                  <option value="gate">Campus Gate</option>
+                </select>
+              </div>
+              <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px;">
+                <div class="form-group">
+                  <label class="form-label">Campus Zone</label>
+                  <select class="form-select" id="newBldgArea">
+                    <option value="Main Campus">Main Campus</option>
+                    <option value="North Residential Campus">North Residential</option>
+                    <option value="Ladies Hostel Campus">Ladies Campus</option>
+                    <option value="External / Entrance Area">External / Entrance</option>
+                    <option value="Separate Campus Area (KCS)">Separate Area (KCS)</option>
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label class="form-label">Verification Status</label>
+                  <select class="form-select" id="newBldgVerification">
+                    <option value="Verified">Verified</option>
+                    <option value="Needs verification">Needs verification</option>
+                  </select>
+                </div>
+              </div>
+              <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px;">
+                <div class="form-group">
+                  <label class="form-label">Latitude</label>
+                  <input type="number" step="0.0000001" class="form-control" id="newBldgLat" value="10.9355000" required>
+                </div>
+                <div class="form-group">
+                  <label class="form-label">Longitude</label>
+                  <input type="number" step="0.0000001" class="form-control" id="newBldgLng" value="76.7442000" required>
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="form-label">Description</label>
+                <input type="text" class="form-control" id="newBldgDesc" placeholder="Brief info and facilities...">
+              </div>
+              <button type="submit" class="btn-primary" id="btnSubmitBuilding">
+                Save Landmark
+              </button>
+            </form>
+          </div>
+
+          <!-- ADD PATH -->
+          <div class="glass-card">
+            <div class="card-title">Add / Update Walkable Pathway</div>
+            <form id="formAddPath" style="display: flex; flex-direction: column; gap: 8px;">
+              <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px;">
+                <div class="form-group">
+                  <label class="form-label">From ID</label>
+                  <input type="text" class="form-control" id="newPathFrom" placeholder="e.g. ADMIN" required>
+                </div>
+                <div class="form-group">
+                  <label class="form-label">To ID</label>
+                  <input type="text" class="form-control" id="newPathTo" placeholder="e.g. CTC_LIBRARY" required>
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="form-label">Distance (Meters)</label>
+                <input type="number" class="form-control" id="newPathDist" value="85" required>
+              </div>
+              <div class="form-group">
+                <label class="form-label">Pathway Name</label>
+                <input type="text" class="form-control" id="newPathName" value="Promenade Walkway">
+              </div>
+              <div style="display: flex; align-items: center; gap: 8px; font-size: 13px;">
+                <input type="checkbox" id="newPathBidi" checked>
+                <label for="newPathBidi">Bidirectional Pedestrian Path</label>
+              </div>
+              <button type="submit" class="btn-primary">
+                Save Walkway Connection
+              </button>
+            </form>
+          </div>
+
+          <!-- ADMIN LOCATIONS LIST MANAGER -->
+          <div class="glass-card">
+            <div class="card-title">
+              <span>Campus Landmark Inventory</span>
+              <span id="adminInventoryCount" style="font-size: 11px; color: var(--text-muted); font-weight: 500;">45 Items</span>
+            </div>
+            <div id="adminInventoryList" style="display: flex; flex-direction: column; gap: 8px; max-height: 280px; overflow-y: auto;">
+              <!-- Dynamically populated -->
+            </div>
+          </div>
+        </div>
+      </section>
+
+    </aside>
+
+    <!-- RIGHT INTERACTIVE MAP CANVAS -->
+    <section class="map-viewport" aria-label="Interactive Campus Map">
+      <div id="campusMap"></div>
+
+      <!-- MAP FLOATING ACTION BUTTONS -->
+      <div class="map-layer-controls">
+        <button class="map-control-btn" id="btnToggleSatellite" title="Toggle Satellite / Street View">
+          Satellite View
+        </button>
+        <button class="map-control-btn" id="btnResetMapView" title="Reset Camera to Karunya Center">
+          Center Map
+        </button>
+      </div>
+
+      <!-- DATA SOURCE DISCLOSURE BADGE -->
+      <div class="map-data-badge">
+        <span class="badge-dot"></span>
+        <span>Map: OpenStreetMap &bull; Campus DB: Karunya Verified</span>
+      </div>
+
+      <!-- MAP LEGEND -->
+      <div class="map-legend-card">
+        <div style="font-weight: 700; color: #0f172a; margin-bottom: 3px;">Campus Categories</div>
+        <div class="legend-item"><span class="legend-dot" style="background: #1d4ed8;"></span> Academic &amp; Depts</div>
+        <div class="legend-item"><span class="legend-dot" style="background: #0284c7;"></span> Boys' Hostels</div>
+        <div class="legend-item"><span class="legend-dot" style="background: #db2777;"></span> Girls' Hostels</div>
+        <div class="legend-item"><span class="legend-dot" style="background: #7c3aed;"></span> Auditoriums (Emmanuel / Bethesda)</div>
+        <div class="legend-item"><span class="legend-dot" style="background: #0f766e;"></span> Labs &amp; Computing</div>
+        <div class="legend-item"><span class="legend-dot" style="background: #ea580c;"></span> Dining &amp; Food Courts</div>
+        <div class="legend-item"><span class="legend-dot" style="background: #16a34a;"></span> Sports &amp; Grounds</div>
+        <div class="legend-item"><span class="legend-dot" style="background: #dc2626;"></span> SEESHA Hospital</div>
+        <div class="legend-item"><span class="legend-dot" style="background: #4f46e5;"></span> KCS (Separate Campus Area)</div>
+        <div class="legend-divider"></div>
+        <div class="legend-item" style="font-size: 10px; color: #475569;">
+          <span class="status-indicator-dot verified"></span> Verified Coordinate
+        </div>
+        <div class="legend-item" style="font-size: 10px; color: #475569;">
+          <span class="status-indicator-dot unverified"></span> Needs Verification
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Leaflet Map JS (Local, guaranteed offline availability) -->
+  <script src="/vendor/leaflet/leaflet.js"></script>
+
+  <!-- Client DSA Engine -->
+  <script src="/js/dsa-client.js"></script>
+
+  <!-- Campus Map Controller -->
+  <script src="/js/map.js"></script>
+
+  <!-- Main Application Controller -->
+  <script src="/js/app.js"></script>
+</body>
+</html>

@@ -1,0 +1,31 @@
+{
+  "name": "karunya-campus-navigation",
+  "version": "1.0.0",
+  "description": "Karunya Campus Navigation & Resource Finder - DSA Micro Project",
+  "main": "server/server.js",
+  "type": "commonjs",
+  "scripts": {
+    "start": "node server/server.js",
+    "test": "node --test tests/dsa.test.js tests/server.test.js"
+  },
+  "keywords": [
+    "dsa",
+    "graph",
+    "dijkstra",
+    "minheap",
+    "karunya",
+    "navigation"
+  ],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "cors": "^2.8.5",
+    "express": "^4.19.2",
+    "jsonwebtoken": "^9.0.2",
+    "leaflet": "^1.9.4"
+  },
+  "devDependencies": {
+    "puppeteer-core": "^25.16.0"
+  }
+}

@@ -1,0 +1,611 @@
+[
+  {
+    "from": "MAIN_GATE",
+    "to": "ADMIN",
+    "distance": 96,
+    "pathName": "Chancellor Avenue",
+    "bidirectional": true
+  },
+  {
+    "from": "MAIN_GATE",
+    "to": "ELOHIM_AUD",
+    "distance": 164,
+    "pathName": "East Promenade",
+    "bidirectional": true
+  },
+  {
+    "from": "MAIN_GATE",
+    "to": "UNIVERSITY_GROUND",
+    "distance": 245,
+    "pathName": "Sports Link Avenue",
+    "bidirectional": true
+  },
+  {
+    "from": "MAIN_GATE",
+    "to": "BETHESDA_CENTRE",
+    "distance": 410,
+    "pathName": "Siruvani Main Road Walkway",
+    "bidirectional": true
+  },
+  {
+    "from": "MAIN_GATE",
+    "to": "HOSPITAL_SEESHA",
+    "distance": 380,
+    "pathName": "West Perimeter Walkway",
+    "bidirectional": true
+  },
+  {
+    "from": "ADMIN",
+    "to": "CYBER_DS",
+    "distance": 89,
+    "pathName": "Academic North Corridor",
+    "bidirectional": true
+  },
+  {
+    "from": "ADMIN",
+    "to": "CIVIL_DEPT",
+    "distance": 57,
+    "pathName": "East Academic Wing",
+    "bidirectional": true
+  },
+  {
+    "from": "ADMIN",
+    "to": "CANTEEN_NESCAFE",
+    "distance": 81,
+    "pathName": "Library North Promenade",
+    "bidirectional": true
+  },
+  {
+    "from": "ADMIN",
+    "to": "ECE_DEPT",
+    "distance": 97,
+    "pathName": "Technology Boulevard",
+    "bidirectional": true
+  },
+  {
+    "from": "ADMIN",
+    "to": "SH_BLOCK",
+    "distance": 75,
+    "pathName": "Central Academic Walkway",
+    "bidirectional": true
+  },
+  {
+    "from": "ADMIN",
+    "to": "UNIVERSITY_GROUND",
+    "distance": 160,
+    "pathName": "Kuvempu Ground Pathway",
+    "bidirectional": true
+  },
+  {
+    "from": "SH_BLOCK",
+    "to": "ECE_DEPT",
+    "distance": 58,
+    "pathName": "Science Block Walkway",
+    "bidirectional": true
+  },
+  {
+    "from": "SH_BLOCK",
+    "to": "UNIVERSITY_GROUND",
+    "distance": 140,
+    "pathName": "Stadium Approach Walkway",
+    "bidirectional": true
+  },
+  {
+    "from": "ECE_DEPT",
+    "to": "BIOTECH_DEPT",
+    "distance": 85,
+    "pathName": "Bio-Tech Link Pathway",
+    "bidirectional": true
+  },
+  {
+    "from": "ECE_DEPT",
+    "to": "CTC_LIBRARY",
+    "distance": 110,
+    "pathName": "Engineering Garden Walk",
+    "bidirectional": true
+  },
+  {
+    "from": "BIOTECH_DEPT",
+    "to": "AGRI_BLOCK",
+    "distance": 125,
+    "pathName": "Agriculture Research Pathway",
+    "bidirectional": true
+  },
+  {
+    "from": "BIOTECH_DEPT",
+    "to": "DOVE_BLDG",
+    "distance": 105,
+    "pathName": "West Campus Promenade",
+    "bidirectional": true
+  },
+  {
+    "from": "AGRI_BLOCK",
+    "to": "HOSPITAL_SEESHA",
+    "distance": 260,
+    "pathName": "Hospital Road Walkway",
+    "bidirectional": true
+  },
+  {
+    "from": "CANTEEN_NESCAFE",
+    "to": "CTC_LIBRARY",
+    "distance": 54,
+    "pathName": "Library Steps & Walkway",
+    "bidirectional": true
+  },
+  {
+    "from": "CTC_LIBRARY",
+    "to": "DOVE_BLDG",
+    "distance": 68,
+    "pathName": "Placement Arcade",
+    "bidirectional": true
+  },
+  {
+    "from": "CTC_LIBRARY",
+    "to": "MEDIA_CENTRE",
+    "distance": 72,
+    "pathName": "Media Corridor",
+    "bidirectional": true
+  },
+  {
+    "from": "CTC_LIBRARY",
+    "to": "BANK_ATM",
+    "distance": 60,
+    "pathName": "Student Services Walk",
+    "bidirectional": true
+  },
+  {
+    "from": "CTC_LIBRARY",
+    "to": "CANTEEN_FOODCOURT",
+    "distance": 95,
+    "pathName": "Central Plaza Walkway",
+    "bidirectional": true
+  },
+  {
+    "from": "BANK_ATM",
+    "to": "CAMPUS_STORE",
+    "distance": 35,
+    "pathName": "Store Arcade",
+    "bidirectional": true
+  },
+  {
+    "from": "BANK_ATM",
+    "to": "CANTEEN_FOODCOURT",
+    "distance": 48,
+    "pathName": "Food Court Pathway",
+    "bidirectional": true
+  },
+  {
+    "from": "CAMPUS_STORE",
+    "to": "CANTEEN_FOODCOURT",
+    "distance": 30,
+    "pathName": "Amenity Walkway",
+    "bidirectional": true
+  },
+  {
+    "from": "CAMPUS_STORE",
+    "to": "CYBER_DS",
+    "distance": 65,
+    "pathName": "Computing Wing Walk",
+    "bidirectional": true
+  },
+  {
+    "from": "CYBER_DS",
+    "to": "CIVIL_DEPT",
+    "distance": 40,
+    "pathName": "Engineering Link Path",
+    "bidirectional": true
+  },
+  {
+    "from": "CYBER_DS",
+    "to": "AIML_DIV",
+    "distance": 78,
+    "pathName": "Data Centre Pathway",
+    "bidirectional": true
+  },
+  {
+    "from": "CIVIL_DEPT",
+    "to": "MECH_DEPT",
+    "distance": 85,
+    "pathName": "Mechanical Quadrangle",
+    "bidirectional": true
+  },
+  {
+    "from": "CIVIL_DEPT",
+    "to": "ELOHIM_AUD",
+    "distance": 115,
+    "pathName": "Auditorium Walkway",
+    "bidirectional": true
+  },
+  {
+    "from": "CANTEEN_FOODCOURT",
+    "to": "AIML_DIV",
+    "distance": 45,
+    "pathName": "AI Innovation Pathway",
+    "bidirectional": true
+  },
+  {
+    "from": "CANTEEN_FOODCOURT",
+    "to": "MECH_DEPT",
+    "distance": 80,
+    "pathName": "Cafeteria Walkway",
+    "bidirectional": true
+  },
+  {
+    "from": "CANTEEN_FOODCOURT",
+    "to": "EBENEZER_AUD",
+    "distance": 75,
+    "pathName": "Convention Avenue",
+    "bidirectional": true
+  },
+  {
+    "from": "MECH_DEPT",
+    "to": "WATER_INSTITUTE",
+    "distance": 80,
+    "pathName": "Research Centre Walkway",
+    "bidirectional": true
+  },
+  {
+    "from": "MECH_DEPT",
+    "to": "AEROSPACE_DEPT",
+    "distance": 65,
+    "pathName": "Aerodynamics Pathway",
+    "bidirectional": true
+  },
+  {
+    "from": "WATER_INSTITUTE",
+    "to": "AEROSPACE_DEPT",
+    "distance": 50,
+    "pathName": "Hangar Access Path",
+    "bidirectional": true
+  },
+  {
+    "from": "WATER_INSTITUTE",
+    "to": "EMMANUEL_AUD",
+    "distance": 85,
+    "pathName": "Emmanuel North Walk",
+    "bidirectional": true
+  },
+  {
+    "from": "AIML_DIV",
+    "to": "ROBOTICS_IOT_LAB",
+    "distance": 70,
+    "pathName": "Robotics Lab Corridor",
+    "bidirectional": true
+  },
+  {
+    "from": "AIML_DIV",
+    "to": "MEDIA_CENTRE",
+    "distance": 92,
+    "pathName": "Media South Pathway",
+    "bidirectional": true
+  },
+  {
+    "from": "ROBOTICS_IOT_LAB",
+    "to": "CSE_DEPT",
+    "distance": 68,
+    "pathName": "Computing Walkway",
+    "bidirectional": true
+  },
+  {
+    "from": "ROBOTICS_IOT_LAB",
+    "to": "EBENEZER_AUD",
+    "distance": 60,
+    "pathName": "Ebenezer Link Path",
+    "bidirectional": true
+  },
+  {
+    "from": "ROBOTICS_IOT_LAB",
+    "to": "KSM_MBA",
+    "distance": 80,
+    "pathName": "Management Quadrangle",
+    "bidirectional": true
+  },
+  {
+    "from": "EBENEZER_AUD",
+    "to": "CSE_DEPT",
+    "distance": 85,
+    "pathName": "CST Auditorium Approach",
+    "bidirectional": true
+  },
+  {
+    "from": "CSE_DEPT",
+    "to": "MEDIA_CENTRE",
+    "distance": 124,
+    "pathName": "West Campus Avenue",
+    "bidirectional": true
+  },
+  {
+    "from": "CSE_DEPT",
+    "to": "KSM_MBA",
+    "distance": 110,
+    "pathName": "South Academic Walkway",
+    "bidirectional": true
+  },
+  {
+    "from": "CSE_DEPT",
+    "to": "KCS_SCHOOL",
+    "distance": 240,
+    "pathName": "South Campus Avenue",
+    "bidirectional": true
+  },
+  {
+    "from": "KSM_MBA",
+    "to": "EMMANUEL_AUD",
+    "distance": 95,
+    "pathName": "Convocation Plaza Walk",
+    "bidirectional": true
+  },
+  {
+    "from": "KSM_MBA",
+    "to": "KCS_SCHOOL",
+    "distance": 260,
+    "pathName": "KCS Inter-Campus Pathway",
+    "bidirectional": true
+  },
+  {
+    "from": "AEROSPACE_DEPT",
+    "to": "EMMANUEL_AUD",
+    "distance": 60,
+    "pathName": "East Plaza Walk",
+    "bidirectional": true
+  },
+  {
+    "from": "AEROSPACE_DEPT",
+    "to": "ELOHIM_AUD",
+    "distance": 100,
+    "pathName": "Conference Walkway",
+    "bidirectional": true
+  },
+  {
+    "from": "ELOHIM_AUD",
+    "to": "EMMANUEL_AUD",
+    "distance": 130,
+    "pathName": "Convention Concourse",
+    "bidirectional": true
+  },
+  {
+    "from": "MEDIA_CENTRE",
+    "to": "DOVE_BLDG",
+    "distance": 85,
+    "pathName": "Placement Walkway",
+    "bidirectional": true
+  },
+  {
+    "from": "MEDIA_CENTRE",
+    "to": "BETHESDA_CENTRE",
+    "distance": 310,
+    "pathName": "West Perimeter Walkway",
+    "bidirectional": true
+  },
+  {
+    "from": "UNIVERSITY_GROUND",
+    "to": "HOSTEL_FDR",
+    "distance": 110,
+    "pathName": "North Campus Gate Corridor",
+    "bidirectional": true
+  },
+  {
+    "from": "UNIVERSITY_GROUND",
+    "to": "DGS_SPORTS",
+    "distance": 270,
+    "pathName": "Athletic Boulevard",
+    "bidirectional": true
+  },
+  {
+    "from": "UNIVERSITY_GROUND",
+    "to": "HOSTEL_SPR",
+    "distance": 450,
+    "pathName": "East Ring Road Walkway",
+    "bidirectional": true
+  },
+  {
+    "from": "HOSTEL_FDR",
+    "to": "HOSTEL_EDWARD",
+    "distance": 75,
+    "pathName": "Residence Quadrangle Walk",
+    "bidirectional": true
+  },
+  {
+    "from": "HOSTEL_FDR",
+    "to": "HOSTEL_BOBRAJ",
+    "distance": 105,
+    "pathName": "Bobraj Approach Path",
+    "bidirectional": true
+  },
+  {
+    "from": "HOSTEL_FDR",
+    "to": "DGS_SPORTS",
+    "distance": 240,
+    "pathName": "Sports Complex Road",
+    "bidirectional": true
+  },
+  {
+    "from": "HOSTEL_EDWARD",
+    "to": "HOSTEL_BOBRAJ",
+    "distance": 65,
+    "pathName": "Men's Hostel Pathway",
+    "bidirectional": true
+  },
+  {
+    "from": "HOSTEL_EDWARD",
+    "to": "HOSTEL_JERRY",
+    "distance": 60,
+    "pathName": "Residence Lane",
+    "bidirectional": true
+  },
+  {
+    "from": "HOSTEL_BOBRAJ",
+    "to": "HOSTEL_JMR",
+    "distance": 72,
+    "pathName": "JMR Walkway",
+    "bidirectional": true
+  },
+  {
+    "from": "HOSTEL_BOBRAJ",
+    "to": "MESS_BOYS",
+    "distance": 55,
+    "pathName": "Dining Hall Approach",
+    "bidirectional": true
+  },
+  {
+    "from": "HOSTEL_JERRY",
+    "to": "HOSTEL_JOHNSON",
+    "distance": 58,
+    "pathName": "North Hostel Pathway",
+    "bidirectional": true
+  },
+  {
+    "from": "HOSTEL_JERRY",
+    "to": "HOSTEL_BOBRAJ",
+    "distance": 90,
+    "pathName": "Quadrangle Pathway",
+    "bidirectional": true
+  },
+  {
+    "from": "HOSTEL_JOHNSON",
+    "to": "HOSTEL_JMR",
+    "distance": 80,
+    "pathName": "Residence Link",
+    "bidirectional": true
+  },
+  {
+    "from": "HOSTEL_JOHNSON",
+    "to": "HOSTEL_HEBRON",
+    "distance": 160,
+    "pathName": "Hebron Approach Road",
+    "bidirectional": true
+  },
+  {
+    "from": "HOSTEL_JMR",
+    "to": "HOSTEL_JVR",
+    "distance": 62,
+    "pathName": "Senior Residence Walk",
+    "bidirectional": true
+  },
+  {
+    "from": "HOSTEL_JMR",
+    "to": "MESS_BOYS",
+    "distance": 65,
+    "pathName": "Dining Walkway",
+    "bidirectional": true
+  },
+  {
+    "from": "HOSTEL_JMR",
+    "to": "DGS_SPORTS",
+    "distance": 210,
+    "pathName": "Sports Access Path",
+    "bidirectional": true
+  },
+  {
+    "from": "HOSTEL_JVR",
+    "to": "HOSTEL_HEBRON",
+    "distance": 110,
+    "pathName": "Hebron Walkway",
+    "bidirectional": true
+  },
+  {
+    "from": "HOSTEL_JVR",
+    "to": "MESS_BOYS",
+    "distance": 85,
+    "pathName": "Mess Connector Path",
+    "bidirectional": true
+  },
+  {
+    "from": "HOSTEL_JVR",
+    "to": "DGS_SPORTS",
+    "distance": 195,
+    "pathName": "Stadium Pathway",
+    "bidirectional": true
+  },
+  {
+    "from": "HOSTEL_HEBRON",
+    "to": "HOSTEL_BETHANY",
+    "distance": 120,
+    "pathName": "Bethany Pathway",
+    "bidirectional": true
+  },
+  {
+    "from": "HOSTEL_BETHANY",
+    "to": "DGS_SPORTS",
+    "distance": 290,
+    "pathName": "North Perimeter Walkway",
+    "bidirectional": true
+  },
+  {
+    "from": "MESS_BOYS",
+    "to": "DGS_SPORTS",
+    "distance": 175,
+    "pathName": "Sports & Mess Boulevard",
+    "bidirectional": true
+  },
+  {
+    "from": "DGS_SPORTS",
+    "to": "HOSTEL_EVANGELINE",
+    "distance": 410,
+    "pathName": "East Campus Link Pathway",
+    "bidirectional": true
+  },
+  {
+    "from": "HOSTEL_EVANGELINE",
+    "to": "HOSTEL_SPR",
+    "distance": 170,
+    "pathName": "Ladies Hostel Promenade",
+    "bidirectional": true
+  },
+  {
+    "from": "HOSTEL_EVANGELINE",
+    "to": "HOSTEL_DMR",
+    "distance": 75,
+    "pathName": "Angel Residence Walk",
+    "bidirectional": true
+  },
+  {
+    "from": "HOSTEL_EVANGELINE",
+    "to": "MESS_GIRLS",
+    "distance": 50,
+    "pathName": "Ladies Dining Walk",
+    "bidirectional": true
+  },
+  {
+    "from": "HOSTEL_SPR",
+    "to": "HOSTEL_SRR",
+    "distance": 90,
+    "pathName": "Residence Walkway",
+    "bidirectional": true
+  },
+  {
+    "from": "HOSTEL_SPR",
+    "to": "HOSTEL_DMR",
+    "distance": 145,
+    "pathName": "DMR Access Path",
+    "bidirectional": true
+  },
+  {
+    "from": "HOSTEL_SPR",
+    "to": "MESS_GIRLS",
+    "distance": 150,
+    "pathName": "Dining Approach Road",
+    "bidirectional": true
+  },
+  {
+    "from": "HOSTEL_SRR",
+    "to": "HOSTEL_DMR",
+    "distance": 120,
+    "pathName": "East Residence Path",
+    "bidirectional": true
+  },
+  {
+    "from": "HOSTEL_SRR",
+    "to": "MESS_GIRLS",
+    "distance": 190,
+    "pathName": "Perimeter Mess Link",
+    "bidirectional": true
+  },
+  {
+    "from": "HOSTEL_DMR",
+    "to": "MESS_GIRLS",
+    "distance": 95,
+    "pathName": "Ladies Mess Pathway",
+    "bidirectional": true
+  }
+]

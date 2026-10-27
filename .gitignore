@@ -1,0 +1,17 @@
+# Node dependencies
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Environment & local files
+.env
+.env.local
+
+# OS files
+Thumbs.db
+.DS_Store
+
+# IDE / Editor folders
+.vscode/
+.idea/
